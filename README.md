@@ -1,6 +1,27 @@
-# Welcome to your Expo app 👋
+# React Native App with Firebase and OpenAI Integration
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+This is a React Native project that utilizes Firebase for authentication and Firestore for database operations. It also integrates OpenAI's API via Axios for AI-based functionalities.
+
+## Features
+
+- **Authentication**: User login and registration using Firebase Authentication.
+- **Database**: Firebase Firestore for storing user data.
+- **AI Integration**: OpenAI API integration using Axios.
+- **UI Framework**: React Native Paper for styling and components.
+
+## Prerequisites
+
+- Node.js and npm installed on your system.
+- Expo CLI for running the React Native app.
+- Firebase project configured with your app.
+- OpenAI API key.
+
+## Installation
+
+1. Clone the repository:
+   ```bash
+   git clone <repository_url>
+   cd <project_directory>
 
 ## Get started
 
