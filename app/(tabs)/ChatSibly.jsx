@@ -12,6 +12,7 @@ import {
   Platform,
   Alert,
 } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { doc, getDoc } from "firebase/firestore";
 import { auth, db } from "../../config/firebase";
 import { createCompletion } from "./openaiService";
@@ -23,6 +24,7 @@ const ChatSibly = () => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
+  const insets = useSafeAreaInsets();
 
   useEffect(() => {
     const fetchAvatarDetails = async () => {
@@ -89,9 +91,17 @@ const ChatSibly = () => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.keyboardView}>
-        <ScrollView style={styles.scrollView} contentContainerStyle={styles.messagesContainer}>
+    <SafeAreaView style={styles.container} edges={['top']}>
+      <KeyboardAvoidingView 
+        behavior={Platform.OS === "ios" ? "padding" : "height"} 
+        style={styles.keyboardView}
+        keyboardVerticalOffset={Platform.OS === "ios" ? 0 : 20}
+      >
+        <ScrollView 
+          style={styles.scrollView} 
+          contentContainerStyle={[styles.messagesContainer, { paddingBottom: 10 }]}
+          keyboardShouldPersistTaps="handled"
+        >
           {messages.slice(1).map((msg, index) => (
             <View
               key={index}
@@ -105,7 +115,7 @@ const ChatSibly = () => {
           ))}
           {loading && <ActivityIndicator size="large" color="#007BFF" />}
         </ScrollView>
-        <View style={styles.inputContainer}>
+        <View style={[styles.inputContainer, { paddingBottom: Math.max(insets.bottom, 10) }]}>
           <TextInput
             style={styles.input}
             placeholder="Type your message..."
@@ -164,6 +174,7 @@ const styles = StyleSheet.create({
   inputContainer: {
     flexDirection: 'row',
     padding: 10,
+    paddingTop: 10,
     borderTopWidth: 1,
     borderColor: '#ddd',
     backgroundColor: '#fff',
